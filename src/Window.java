@@ -13,7 +13,7 @@ public class Window extends JFrame { //JFrame is the frame of the console. It is
         this.add(new Bakgrund());
 
         //Window visible
-        this.pack();
+        this.pack(); //Packages the window.
         this.setVisible(true); //Makes the window visible
     }
 
