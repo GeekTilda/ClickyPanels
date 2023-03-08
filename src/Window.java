@@ -57,6 +57,7 @@ public class Window extends JFrame { //JFrame is the frame of the console. It is
 
     public boolean isLeftRight() {
         LeftRight = !LeftRight;
+        System.out.println(LeftRight);
         return LeftRight;
     }
 

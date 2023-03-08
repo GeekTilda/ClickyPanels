@@ -15,7 +15,6 @@ public class Bakgrund extends JPanel implements MouseListener {
     public Bakgrund(Window window) {
         myWindow = window;
         this.xo = window.isXo();
-        this.LR = window.isLeftRight();
         this.setBackground(Color.BLACK); //Sets the color of the background
         this.setBorder(BorderFactory.createLineBorder(Color.black, 4));
         this.setPreferredSize(new Dimension(SIZE,SIZE)); //Sets preferred size of window
@@ -48,16 +47,19 @@ public class Bakgrund extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (xo) {
+            this.LR = myWindow.isLeftRight();
+            /*
             if (e.getButton() == MouseEvent.BUTTON1) { //If the left button is pressed
                 //System.out.println("LEFT");
-                System.out.println("1");
+                //System.out.println("1");
                 LR = false; //Sets LR to false
             }
             if (e.getButton() == MouseEvent.BUTTON1) { //If the right button is pressed
                 //System.out.println("RIGHT");
-                System.out.println("2");
+                //System.out.println("2");
                 LR = true; //Sets LR to true
             }
+            */
             System.out.println("Mouse clicked! ");
             number += 1; //Adds 1 to number every time the mouse is clicked.
             if (myWindow.isBlue()) {
@@ -68,9 +70,7 @@ public class Bakgrund extends JPanel implements MouseListener {
             myWindow.setBlue();
             //firstcolor = !firstcolor; //Changes firstcolor to what it isnt. True->false. False->true
             repaint(); //Updates
-            System.out.println(xo);
             xo = !xo;
-            System.out.println(xo);
         }
     }
 
