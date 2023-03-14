@@ -8,6 +8,8 @@ public class Bakgrund extends JPanel implements MouseListener {
     private Boolean firstcolor = false; //Will be used to change the color of the background.
     private int number = 0; //Will be used to count how many times clicked.
     private Boolean LR = false; //Will be used to know whether left or right has been clicked.
+    private int LR2 = 0;
+
     Window myWindow;
     boolean xo;
 
@@ -30,15 +32,19 @@ public class Bakgrund extends JPanel implements MouseListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g); //Makes g our "paintbrush". AKA what we will use to refer to.
         g.setColor(Color.BLACK); //Sets the color of our "paintbrush" to black
-            if (LR) { //Will draw an "X"
-                g.drawLine((int) (SIZE * 0.1), (int) (SIZE * 0.1), (int) (SIZE * 0.9), (int) (SIZE * 0.9));
-                g.drawLine((int) (SIZE * 0.9), (int) (SIZE * 0.1), (int) (SIZE * 0.1), (int) (SIZE * 0.9));
-            } else { //Will draw an "O"
-                g.drawOval((int) (SIZE * 0.1), (int) (SIZE * 0.1), (int) (SIZE * 0.8), (int) (SIZE * 0.8));
-            }
-            g.setFont(new Font("SansSerif", Font.PLAIN, 50)); //How the text will look
-            g.drawString(String.valueOf(number), SIZE / 2 - 25, SIZE / 2); //What text will be printed and where
-            repaint(); //Makes it so that it will update :)
+        if (LR2 == 1) { //Will draw an "X"
+            g.drawLine((int) (SIZE * 0.1), (int) (SIZE * 0.1), (int) (SIZE * 0.9), (int) (SIZE * 0.9));
+            g.drawLine((int) (SIZE * 0.9), (int) (SIZE * 0.1), (int) (SIZE * 0.1), (int) (SIZE * 0.9));
+        } else if (LR2 == 2){ //Will draw an "O"
+            g.drawOval((int) (SIZE * 0.1), (int) (SIZE * 0.1), (int) (SIZE * 0.8), (int) (SIZE * 0.8));
+        }
+        g.setFont(new Font("SansSerif", Font.PLAIN, 50)); //How the text will look
+        repaint(); //Makes it so that it will update :)
+        if (myWindow.last == this) {
+            this.setBackground(Color.MAGENTA);
+        } else {
+            this.setBackground(Color.white);
+        }
     }
 
     /*
@@ -47,31 +53,24 @@ public class Bakgrund extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (xo) {
-            this.LR = myWindow.isLeftRight();
-            /*
-            if (e.getButton() == MouseEvent.BUTTON1) { //If the left button is pressed
-                //System.out.println("LEFT");
-                //System.out.println("1");
-                LR = false; //Sets LR to false
-            }
-            if (e.getButton() == MouseEvent.BUTTON1) { //If the right button is pressed
-                //System.out.println("RIGHT");
-                //System.out.println("2");
-                LR = true; //Sets LR to true
-            }
-            */
-            System.out.println("Mouse clicked! ");
-            number += 1; //Adds 1 to number every time the mouse is clicked.
-            if (myWindow.isBlue()) {
-                this.setBackground(Color.cyan);
+            if (myWindow.isLeftRight()) {
+                LR2 = 1;
             } else {
-                this.setBackground(Color.YELLOW);
+                LR2 = 2;
             }
+            System.out.println("Mouse clicked! ");
             myWindow.setBlue();
-            //firstcolor = !firstcolor; //Changes firstcolor to what it isnt. True->false. False->true
             repaint(); //Updates
             xo = !xo;
         }
+        for (int i = 0; i < myWindow.getPosition().size(); i++) { //THIS IS JONIS WORK.
+
+        }
+        if (myWindow.last != null) {
+            myWindow.last.repaint();
+        }
+        myWindow.last = this;
+        repaint();
     }
 
     /*
